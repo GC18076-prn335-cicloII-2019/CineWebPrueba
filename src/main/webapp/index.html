@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Start Page</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+        <form action="http://localhost:8080/CWeb/FrmServlet" method="POST">
+            <label for="caracteristicaAsiento">Salas por tipo de asiento:</label>
+            <input type="text" name="caracteristicaAsiento" id="caracteristicaAsiento">
+            <br>
+            
+            <label for="director">Funciones por director:</label>
+            <input type="text" name="director" id="director">
+            <br>
+            
+            <label for="fecha">Salas por funcion:</label>
+            <input type="date" name="fecha" id="fecha">
+            <br>
+            
+            <input type="submit" name="enviar" value="Enviar">
+        </form>
+    </body>
+</html>

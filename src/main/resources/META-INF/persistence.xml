@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <!-- Define Persistence Unit -->
+  <persistence-unit name="cPruebaPU" transaction-type="JTA">
+    <jta-data-source>jdbc/cPrueba</jta-data-source>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Asiento</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.AsientoSala</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.AtributoAsiento</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.AtributoFuncion</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.AtributoSala</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Boleto</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.CaracteristicaAsiento</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.CaracteristicaFuncion</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.CaracteristicaSala</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Clasificacion</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Descuento</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Director</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Factura</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Funcion</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Genero</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.MenuConsumible</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Orden</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.OrdenConsumible</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Pago</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Pelicula</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Sala</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.Sucursal</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.TipoDescuento</class>
+    <class>ues.occ.edu.sv.ingenieria.prn335.centities.TipoPago</class>
+  </persistence-unit>
+</persistence>
