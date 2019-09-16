@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ues.occ.edu.sv.ingenieria.prn335.centities.Funcion;
+import ues.occ.edu.sv.ingenieria.prn335.centities.Pelicula;
 import ues.occ.edu.sv.ingenieria.prn335.centities.Sala;
 import ues.occ.edu.sv.ingenieria.prn335.cweb.controller.DirectorFacadeLocal;
 import ues.occ.edu.sv.ingenieria.prn335.cweb.controller.Prueba;
@@ -55,6 +56,7 @@ public class FrmServlet extends HttpServlet {
             if (!(request.getParameter("fecha").isEmpty())) {
                 salasFuncion = pr.salasPorFuncion(Date.valueOf(request.getParameter("fecha")));
             }
+            List<Pelicula> tipoPelicula = pr.tipoPelicula(request.getParameter("clasificacion"), request.getParameter("genero"));
             
 
             out.println("<!DOCTYPE html>");
@@ -64,7 +66,6 @@ public class FrmServlet extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet FrmServlet at " + request.getContextPath() + "</h1>");
-            out.println(pr.tipoPelicula("B", "Terror").get(0).getTitulo());
             if (!(salasTipoAsiento.isEmpty())) {
                 out.println("<table border='2'>");
                 out.println("<caption>Salas segun tipo de asiento</caption>");
@@ -109,6 +110,21 @@ public class FrmServlet extends HttpServlet {
                             + "<td>" + salasFuncion.get(i).getIdSucursal().getDireccion() + "</td>"
                             + "<td>" + salasFuncion.get(i).getAsientoSalaList().get(0).getBoletoList().get(0).getIdFuncion().getIdFuncion() + "</td>"
                             + "<td>" + salasFuncion.get(i).getAsientoSalaList().get(0).getBoletoList().get(0).getIdFuncion().getFecha() + "</td></tr>");
+                }
+                out.println("</table>");
+            }
+            
+            out.print("<br>");
+
+            if (!(tipoPelicula.isEmpty())) {
+                out.println("<table border='2'>");
+                out.println("<caption>Peliculas segun clasificacion y genero</caption>");
+                out.println("<tr><th>Id_Pelicula</th><th>Pelicula</th><th>Clasificacion</th><th>Genero</th><th>Id_Funcion</th><th>Fecha_Funcion</th></tr>");
+                for (int i = 0; i < tipoPelicula.size(); i++) {
+                    out.print("<tr><td>" + tipoPelicula.get(i).getIdPelicula() + "</td>"
+                            + "<td>" + tipoPelicula.get(i).getTitulo() + "</td>"
+                            + "<td>" + tipoPelicula.get(i).getIdClasificacion().getClasificacion() + "</td>"
+                            + "<td>" + tipoPelicula.get(i).getGeneroList().get(0).getNombre() + "</td></tr>");
                 }
                 out.println("</table>");
             }

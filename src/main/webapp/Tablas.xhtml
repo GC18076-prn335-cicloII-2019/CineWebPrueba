@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <div align="center">
+            <h:form>
+                Consultas
+                <h:panelGrid columns="2">
+                    <h:outputLabel for="tipoAsiento" value="Salas por tipo asiento"/>
+                    <h:inputText id="tipoAsiento" value="#{managedBeans.tipo}" >
+                        <f:ajax execute="@this" render=":tipo"/>
+                    </h:inputText>
+
+                    <h:outputLabel for="director" value="Funciones por director"/>
+                    <h:inputText id="director" value="#{managedBeans.director}">
+                        <f:ajax execute="@this" render=":tDirector"/>
+                    </h:inputText>
+
+                    <h:outputText value="Peliculas por:"/>
+                    <h:column></h:column>
+                    <h:outputLabel for="clasificacion" value="Clasificacion"/>
+                    <h:inputText id="clasificacion" value="#{managedBeans.clasificacion}">
+                        <f:ajax execute="@this" render=":tPelicula"/>
+                    </h:inputText>
+                    <h:outputLabel for="genero" value="Genero"/>
+                    <h:inputText id="genero" value="#{managedBeans.genero}">
+                        <f:ajax execute="@this" render=":tPelicula"/>
+                    </h:inputText>
+
+                    <h:outputLabel for="proyeccion" value="Sucursal por tipo proyeccion"/>
+                    <h:inputText id="proyeccion" value="#{managedBeans.tipoProyeccion}">
+                        <f:ajax execute="@this" render=":tSucursal"/>
+                    </h:inputText>
+
+                    <h:outputLabel for="fecha" value="Salas por fecha de funcion"/>
+                    <h:inputText id="fecha" value="#{managedBeans.fecha}">
+                        <f:convertDateTime pattern="yyyy-mm-dd"/>
+                        <f:ajax execute="@this" render=":tSala"/>
+                    </h:inputText>
+
+                    <h:commandButton value="Mostrar" actionListener="#{managedBeans.mensajesControl()}"/>
+                </h:panelGrid>
+
+                <h:messages id="m" errorStyle="color: red" infoStyle="color: green" globalOnly="true"/>
+
+            </h:form>
+
+            <h:form id="tipo" rendered="#{not empty managedBeans.tipo}">
+                <h:dataTable value="#{managedBeans.salasAsiento()}" var="s" border="5">
+                    <f:facet name="header">Salas con asientos #{managedBeans.tipo}</f:facet>
+                    <h:column>
+                        <f:facet name="header">Id</f:facet>
+                        <h:outputText value="#{s.idSala}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Sala</f:facet>
+                        <h:outputText value="#{s.sala}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Sucursal</f:facet>
+                        <h:outputText value="#{s.idSucursal.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Direccion</f:facet>
+                        <h:outputText value="#{s.idSucursal.direccion}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+
+            <h:form id="tDirector" rendered="#{not empty managedBeans.director}">
+                <h:dataTable value="#{managedBeans.funcionesDirector()}" var="f" border="5" >
+                    <f:facet name="header">Funciones con peliculas por el director #{managedBeans.director}</f:facet>
+                    <h:column>
+                        <f:facet name="header">Id</f:facet>
+                        <h:outputText value="#{f.idFuncion}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Pelicula</f:facet>
+                        <h:outputText value="#{f.idPelicula.titulo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Fecha</f:facet>
+                        <h:outputText value="#{f.fecha}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+
+            <h:form id="tPelicula" rendered="#{not empty managedBeans.clasificacion and not empty managedBeans.genero}">
+                <h:dataTable value="#{managedBeans.peliculasTipo()}" var="p" border="5" >
+                    <f:facet name="header">Peliculas con clasificacion #{managedBeans.clasificacion} y genero #{managedBeans.genero}</f:facet>
+                    <h:column>
+                        <f:facet name="header">Id</f:facet>
+                        <h:outputText value="#{p.idPelicula}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Pelicula</f:facet>
+                        <h:outputText value="#{p.titulo}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Sinopsis</f:facet>
+                        <h:outputText value="#{p.sinopsis}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Duración</f:facet>
+                        <h:outputText value="#{p.duracion}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Fecha de estreno</f:facet>
+                        <h:outputText value="#{p.fechaEstreno}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+
+            <h:form id="tSucursal" rendered="#{not empty managedBeans.tipoProyeccion}">
+                <h:dataTable value="#{managedBeans.sucursalSala()}" var="su" border="5" >
+                    <f:facet name="header">Sucursales con salas con #{managedBeans.tipoProyeccion}</f:facet>
+                    <h:column>
+                        <f:facet name="header">Id</f:facet>
+                        <h:outputText value="#{su.idSucursal}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Sucursal</f:facet>
+                        <h:outputText value="#{su.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Dirección</f:facet>
+                        <h:outputText value="#{su.direccion}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Contacto</f:facet>
+                        <h:outputText value="#{su.contacto}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Activo</f:facet>
+                        <h:outputText value="#{su.activo}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+
+            <h:form id="tSala" rendered="#{not empty managedBeans.fecha}">
+                <h:dataTable value="#{managedBeans.salasFuncion()}" var="sf" border="5" >
+                    <f:facet name="header">Salas con funcion el #{managedBeans.fecha}</f:facet>
+                    <h:column>
+                        <f:facet name="header">Id</f:facet>
+                        <h:outputText value="#{sf.idSala}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Sucursal</f:facet>
+                        <h:outputText value="#{sf.sala}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Sucursal</f:facet>
+                        <h:outputText value="#{sf.idSucursal.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">Dirección</f:facet>
+                        <h:outputText value="#{sf.idSucursal.direccion}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </div>
+    </h:body>
+</html>
+
